@@ -1,6 +1,123 @@
-<html>
-  <head><title>Darshan's Plan</title></head>
-  <body>
-    <h1>Hello, This is Darshan's Plan Page!</h1>
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software Engineer Study Guide - DSA</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f4f4;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            padding: 30px 0;
+        }
+        .header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        .header p {
+            color: #777;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            margin: 10px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .progress-bar {
+            background: #ddd;
+            border-radius: 20px;
+            overflow: hidden;
+            height: 15px;
+            margin-top: 10px;
+        }
+        .progress-fill {
+            height: 100%;
+            background: #4CAF50;
+            width: 0;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .search-section {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .search-section input {
+            padding: 10px;
+            width: 250px;
+        }
+        .search-section button {
+            padding: 10px 20px;
+            margin-left: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>Software Engineer Study Guide</h1>
+        <p>Focused on Data Structures & Algorithms (DSA)</p>
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <h2>Arrays</h2>
+            <div class="progress-bar"><div class="progress-fill" style="width:80%"></div></div>
+        </div>
+        <div class="card">
+            <h2>Strings</h2>
+            <div class="progress-bar"><div class="progress-fill" style="width:60%"></div></div>
+        </div>
+        <div class="card">
+            <h2>Linked List</h2>
+            <div class="progress-bar"><div class="progress-fill" style="width:40%"></div></div>
+        </div>
+        <div class="card">
+            <h2>Stack & Queue</h2>
+            <div class="progress-bar"><div class="progress-fill" style="width:30%"></div></div>
+        </div>
+        <div class="card">
+            <h2>Trees</h2>
+            <div class="progress-bar"><div class="progress-fill" style="width:20%"></div></div>
+        </div>
+        <div class="card">
+            <h2>Graphs</h2>
+            <div class="progress-bar"><div class="progress-fill" style="width:10%"></div></div>
+        </div>
+        <div class="card">
+            <h2>Dynamic Programming</h2>
+            <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+        </div>
+    </div>
+
+    <div class="search-section">
+        <input type="text" placeholder="Search any topic...">
+        <button>Suggest a new Topic</button>
+    </div>
+</div>
+
+</body>
 </html>
