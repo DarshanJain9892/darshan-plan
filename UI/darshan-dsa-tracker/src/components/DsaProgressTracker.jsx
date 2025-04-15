@@ -1,8 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
 import { Chart as ChartJS, BarElement, CategoryScale, LinearScale } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import jsPDF from 'jspdf';
@@ -29,6 +25,7 @@ const initialTopics = [
 
 export default function DsaProgressTracker() {
   const [topics, setTopics] = useState(() => JSON.parse(localStorage.getItem('dsaProgress')) || initialTopics);
+  const [tempInputs, setTempInputs] = useState(() => topics.map(topic => topic.progress.toString()));
   const [quote, setQuote] = useState('');
 
   useEffect(() => {
@@ -80,26 +77,49 @@ export default function DsaProgressTracker() {
       <div className="text-center mb-6">
         <h1 className="text-4xl font-bold mb-2">Darshan's DSA Progress Tracker</h1>
         <p className="text-gray-600 mb-4">Track your journey to become DSA Pro!</p>
-        <h2 className="mb-4">Motivation: {quote}</h2>
-        <h2 className="mb-4">Overall Completion: {averageProgress}%</h2>
-        <Button onClick={downloadPDF} className="mr-2">Download as PDF</Button>
-        <Button onClick={() => window.print()}>Print Progress</Button>
+        <h2 className="mb-4 font-semibold text-xl text-green-700">Motivation: {quote}</h2>
+        <h2 className="mb-4 text-lg">Overall Completion: <strong>{averageProgress}%</strong></h2>
+        <button onClick={downloadPDF} className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 mr-2">
+          Download as PDF
+        </button>
+        <button onClick={() => window.print()} className="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-800">
+          Print Progress
+        </button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {topics.map((topic, index) => (
-          <Card key={index}>
-            <CardContent className="flex flex-col gap-2">
-              <h2 className="text-xl font-semibold">{topic.name}</h2>
-              <a href={topic.resource} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">Resources</a>
-              <Input type="number" value={topic.progress} min="0" max="100" onChange={(e) => updateProgress(index, e.target.value)} />
-              <Textarea value={topic.notes} onChange={(e) => updateNotes(index, e.target.value)} placeholder="Write notes here..." />
-            </CardContent>
-          </Card>
+          <div key={index} className="bg-white shadow-md rounded-lg p-4">
+            <h2 className="text-xl font-semibold mb-1">{topic.name}</h2>
+            <a href={topic.resource} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline text-sm">View Resources</a>
+
+            <input
+              type="number"
+              value={tempInputs[index]}
+              onChange={(e) => {
+                const updated = [...tempInputs];
+                updated[index] = e.target.value;
+                setTempInputs(updated);
+              }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  updateProgress(index, tempInputs[index]);
+                }
+              }}
+              className="mt-2 w-full border p-2 rounded"
+            />
+
+            <textarea
+              value={topic.notes}
+              onChange={(e) => updateNotes(index, e.target.value)}
+              placeholder="Write notes here..."
+              className="mt-2 w-full border p-2 rounded"
+            />
+          </div>
         ))}
       </div>
 
-      <div className="mt-8">
+      <div className="mt-10 bg-white p-4 shadow rounded-lg">
         <Bar data={chartData} />
       </div>
     </div>
