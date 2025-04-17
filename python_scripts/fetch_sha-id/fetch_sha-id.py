@@ -6,6 +6,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 import sys
 import os
+import re
 
 def read_servers(file_path):
     servers = []
@@ -34,10 +35,18 @@ def fetch_sha(index, ip, tomcat_name, app_name, username, password, max_attempts
             ssh.close()
 
             if output:
-                return (index, ip, tomcat_name, app_name, output)
+            # Try to extract the SHA from the output using regex
+                match = re.search(r"\b[0-9a-fA-F]{40}\b", output)
+                if match:
+                    clean_sha = match.group(0)
+                    return (index, ip, tomcat_name, app_name, clean_sha)
+                else:
+                    print(f"[{ip}] SHA pattern not found in output: {output}")
+                    return (index, ip, tomcat_name, app_name, "N/A")
             else:
                 msg = error if error else "git-revision file not found or empty"
-                return (index, ip, tomcat_name, app_name, f"Error: {msg}")
+            print(f"[{ip}] {msg}")
+            return (index, ip, tomcat_name, app_name, "N/A")
 
         except Exception as e:
             attempt += 1
