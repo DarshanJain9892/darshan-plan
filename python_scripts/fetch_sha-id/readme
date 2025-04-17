@@ -1,0 +1,5 @@
+#if default input file (servers.txt) is to be used
+python3 fetch_sha-id.py
+
+# if seperate input file is there
+python3 fetch_sha-id.py input.txt
