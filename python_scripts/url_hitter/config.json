@@ -1,0 +1,7 @@
+{
+  "interval_seconds": 5,
+  "urls": [
+    "URL1",
+    "URL2"
+  ]
+}
